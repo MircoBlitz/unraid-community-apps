@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Camofox-Browser</Name>
+  <Repository>ghcr.io/jo-inc/camofox-browser:1.14.0</Repository>
+  <Registry>https://github.com/jo-inc/camofox-browser/pkgs/container/camofox-browser</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MircoBlitz/unraid-camofox-stealth-browser/issues</Support>
+  <Project>https://github.com/jo-inc/camofox-browser</Project>
+  <Overview>Private Camofox Browser REST backend for local AI agents and MCP adapters. It provides token-efficient Firefox-based browser automation and optional password-protected noVNC access for shared human-and-LLM browsing. This template pins the official multi-architecture 1.14.0 image, persists profiles locally, requires bearer authentication, and disables upstream crash telemetry.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/camofox-browser.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/MircoBlitz/unraid-camofox-stealth-browser/main/assets/camofox.png</Icon>
+  <ExtraParams>--shm-size=1g --security-opt no-new-privileges=true</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Set separate random Access and Cookie API keys before the first start. Keep ports 9377 and 6080 restricted to your LAN or VPN. noVNC is optional and disabled by default. The MCP adapter runs on each client and connects through CAMOFOX_BASE_URL.</Requires>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/camofox-browser" Mode="rw" Description="Persistent browser profiles, cookies, uploads, and short-lived traces. This directory can contain login credentials and must be backed up and protected." Type="Path" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="REST API Port" Target="9377" Default="9377" Mode="tcp" Description="Authenticated Camofox REST API. Restrict access to LAN or VPN." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="noVNC Web Port" Target="6080" Default="6080" Mode="tcp" Description="Optional noVNC browser desktop. Keep restricted to LAN/VPN; noVNC traffic is not encrypted by default." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Enable noVNC" Target="ENABLE_VNC" Default="0" Mode="" Description="Set to 1 to enable shared human-and-LLM browser access through the noVNC web interface." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="noVNC Password" Target="VNC_PASSWORD" Default="" Mode="" Description="Password for interactive noVNC access. Set 8 random ASCII characters before enabling noVNC; classic VNC authentication ignores additional characters." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="noVNC Resolution" Target="VNC_RESOLUTION" Default="1920x1080" Mode="" Description="Virtual display resolution used by the interactive browser desktop." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="noVNC Bind Address" Target="VNC_BIND" Default="0.0.0.0" Mode="" Description="Required inside Docker so the mapped noVNC port is reachable. Keep the host port restricted to LAN/VPN." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="View Only" Target="VIEW_ONLY" Default="0" Mode="" Description="Set to 1 to prevent human mouse and keyboard input; keep 0 for interactive login and shared browsing." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Access Key" Target="CAMOFOX_ACCESS_KEY" Default="" Mode="" Description="Required bearer token protecting normal REST and MCP operations." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="Cookie API Key" Target="CAMOFOX_API_KEY" Default="" Mode="" Description="Required bearer token for cookie import. Use a separate long random value." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="Bind Address" Target="CAMOFOX_BIND_HOST" Default="0.0.0.0" Mode="" Description="Required inside the container so the mapped REST port is reachable." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Service Port" Target="CAMOFOX_PORT" Default="9377" Mode="" Description="Internal HTTP port; keep aligned with the container port mapping." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Profile Directory" Target="CAMOFOX_PROFILE_DIR" Default="/data/profiles" Mode="" Description="Persistent per-user cookies and localStorage." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Cookie Directory" Target="CAMOFOX_COOKIES_DIR" Default="/data/cookies" Mode="" Description="Sandboxed location for optional Netscape-format cookie imports." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Upload Directory" Target="CAMOFOX_UPLOADS_DIR" Default="/data/uploads" Mode="" Description="Sandboxed location from which agents may upload files to websites." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Trace Directory" Target="CAMOFOX_TRACES_DIR" Default="/data/traces" Mode="" Description="Short-lived Playwright trace archives when tracing is explicitly enabled." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Disable Crash Telemetry" Target="CAMOFOX_CRASH_REPORT_ENABLED" Default="false" Mode="" Description="Keep crash and hang reports local for this private deployment." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Maximum Sessions" Target="MAX_SESSIONS" Default="5" Mode="" Description="Limit simultaneous isolated browser sessions for a small private deployment." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Maximum Tabs per Session" Target="MAX_TABS_PER_SESSION" Default="10" Mode="" Description="Limit tabs in each browser session." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Maximum Global Tabs" Target="MAX_TABS_GLOBAL" Default="20" Mode="" Description="Hard global tab limit for the service." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Browser Idle Shutdown" Target="BROWSER_IDLE_TIMEOUT_MS" Default="300000" Mode="" Description="Stop the browser engine after five idle minutes while keeping the REST service available." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+</Container>

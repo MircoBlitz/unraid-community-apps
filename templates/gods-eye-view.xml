@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Gods-Eye-View</Name>
+  <Repository>ghcr.io/mircoblitz/gods-eye-view:latest</Repository>
+  <Registry>https://github.com/MircoBlitz/gods-eye-view/pkgs/container/gods-eye-view</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MircoBlitz/gods-eye-view/issues</Support>
+  <Project>https://github.com/bilawalsidhu/gods-eye-view</Project>
+  <Overview>God's Eye View is a browser-based 3D globe for exploring public aircraft, ship, satellite, earthquake, traffic, camera, radio, fire, and other geospatial data. This image packages the upstream v0.1.1 application and its required Vite proxy server. It starts without API keys. Optional provider credentials unlock additional data and voice features. Intended for a trusted home LAN; the application has no user authentication.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:4173]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/gods-eye-view.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/MircoBlitz/gods-eye-view/main/assets/gods-eye-view.png</Icon>
+  <ExtraParams>--init --stop-timeout=15</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>WebGL-capable browser. Keep this container on a trusted LAN or behind a separately reviewed authenticated reverse proxy. Anyone who can reach the web interface can use configured provider-backed endpoints and consume their quotas. Provider Settings inside the app is intentionally unavailable for a network-shared container; configure optional keys in this template. Restrict client-visible Google Maps and Cesium credentials at their providers and set provider-side quotas or spending limits.</Requires>
+  <Config Name="Web UI Port" Target="4173" Default="4173" Mode="tcp" Description="God's Eye View web interface. Keep it restricted to a trusted LAN." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Cesium ion Token" Target="CESIUM_ION_TOKEN" Default="" Mode="" Description="Optional client-visible assets:read token for photorealistic 3D and world terrain. Apply URL restrictions and provider quotas." Type="Variable" Display="always-hide" Required="false" Mask="true"/>
+  <Config Name="Google Maps API Key" Target="GOOGLE_MAPS_API_KEY" Default="" Mode="" Description="Optional client-visible key for direct Google Photorealistic 3D Tiles and place search. Apply HTTP-referrer and API restrictions plus provider quotas." Type="Variable" Display="always-hide" Required="false" Mask="true"/>
+  <Config Name="OpenAI API Key" Target="OPENAI_API_KEY" Default="" Mode="" Description="Optional server-side key for realtime voice and AI HUD summaries. Configure provider-side spending limits before use." Type="Variable" Display="always-hide" Required="false" Mask="true"/>
+  <Config Name="OpenAI Requests per Minute per Client" Target="GEV_RATELIMIT_OPENAI_PER_MIN" Default="30" Mode="" Description="Process-local per-client limit for OpenAI-backed endpoints. This is not a billing cap." Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="Google Requests per Minute per Client" Target="GEV_RATELIMIT_GOOGLE_PER_MIN" Default="60" Mode="" Description="Process-local per-client limit for Google Places requests. This is not a billing cap." Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="AISStream API Key" Target="AISSTREAM_API_KEY" Default="" Mode="" Description="Optional server-side key for live vessel positions." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="NASA FIRMS Map Key" Target="FIRMS_MAP_KEY" Default="" Mode="" Description="Optional server-side key for live active-fire detections." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="TomTom API Key" Target="TOMTOM_API_KEY" Default="" Mode="" Description="Optional server-side key for live traffic-flow speeds. Keyless traffic remains simulated." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="TomTom Daily Tile Budget" Target="TOMTOM_DAILY_TILE_BUDGET" Default="40000" Mode="" Description="Application-level UTC-day limit for TomTom upstream tile requests. This is not a provider billing cap." Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="OpenSky Authentication Mode" Target="OPENSKY_AUTH_MODE" Default="anon" Mode="" Description="Use anon without credentials. Set oauth when configuring both OpenSky client fields." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="OpenSky Client ID" Target="OPENSKY_CLIENT_ID" Default="" Mode="" Description="Optional OAuth client ID for additional OpenSky polling credits. Also set mode to oauth and provide the client secret." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="OpenSky Client Secret" Target="OPENSKY_CLIENT_SECRET" Default="" Mode="" Description="Optional OAuth client secret for OpenSky. Also set mode to oauth and provide the client ID." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="Launch Library 2 Token" Target="LL2_API_TOKEN" Default="" Mode="" Description="Optional server-side token for a higher space-missions request allowance." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+</Container>
