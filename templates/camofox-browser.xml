@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Camofox-Browser</Name>
-  <Repository>ghcr.io/jo-inc/camofox-browser:1.14.0</Repository>
+  <Repository>ghcr.io/jo-inc/camofox-browser:latest</Repository>
   <Registry>https://github.com/jo-inc/camofox-browser/pkgs/container/camofox-browser</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/MircoBlitz/unraid-camofox-stealth-browser/issues</Support>
+  <Support>https://github.com/MircoBlitz/unraid-community-apps/issues</Support>
   <Project>https://github.com/jo-inc/camofox-browser</Project>
-  <Overview>Private Camofox Browser REST backend for local AI agents and MCP adapters. It provides token-efficient Firefox-based browser automation and optional password-protected noVNC access for shared human-and-LLM browsing. This template pins the official multi-architecture 1.14.0 image, persists profiles locally, requires bearer authentication, and disables upstream crash telemetry.</Overview>
+  <Overview>Private Camofox Browser REST backend for local AI agents and MCP adapters. It provides token-efficient Firefox-based browser automation and optional password-protected noVNC access for shared human-and-LLM browsing. This template follows the official multi-architecture latest image, persists profiles locally, requires bearer authentication, and disables upstream crash telemetry.</Overview>
   <Category>Tools:Utilities</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/camofox-browser.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/MircoBlitz/unraid-camofox-stealth-browser/main/assets/camofox.png</Icon>
+  <Icon>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/assets/camofox.png</Icon>
   <ExtraParams>--shm-size=1g --security-opt no-new-privileges=true</ExtraParams>
   <PostArgs/>
   <CPUset/>

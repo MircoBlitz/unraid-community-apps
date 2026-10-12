@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CommunityApplications>
-  <Profile>Unraid Community Applications templates maintained by MircoBlitz. Each application has a separate source repository with its own documentation and support tracker.</Profile>
+  <Profile>Unraid Community Applications templates maintained by MircoBlitz. Camofox uses the official upstream image with Unraid documentation and support here. God's Eye View has a separate image-packaging and support repository.</Profile>
   <Icon>https://github.com/MircoBlitz.png</Icon>
   <WebPage>https://github.com/MircoBlitz/unraid-community-apps</WebPage>
   <Forum>https://github.com/MircoBlitz/unraid-community-apps/issues</Forum>
