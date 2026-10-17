@@ -1,6 +1,6 @@
-# NocoDB local container test results
+# NocoDB test results
 
-Tested on 2026-10-17 with Docker Desktop using a Linux/arm64 engine. These are local functional runtime tests, not an Unraid deployment test.
+Tested on 2026-10-17. SQLite and PostgreSQL functional tests used Docker Desktop with a Linux/arm64 engine. A separate, narrower startup/HTTP check used an actual Unraid deployment.
 
 ## Image tested
 
@@ -53,13 +53,26 @@ Results:
 
 This validates the template's separate-PostgreSQL connection model. It does not install or manage PostgreSQL as part of the NocoDB container.
 
+## Unraid deployment check
+
+The template was staged on the owner's Unraid host. Its XML parsed successfully with Unraid's PHP XML parser, and its checksum matched the reviewed source at staging time.
+
+Subsequent read-only checks on that host confirmed:
+
+- The `NocoDB` container was running with `nocodb/nocodb:latest`.
+- Container port `8080/tcp` was published on host port `8080`.
+- `GET /api/v1/health` returned HTTP 200 with `"message":"OK"`.
+- `GET /` returned HTTP 200.
+
+The deployed database mode, credentials, browser onboarding, and persistence across restart/recreation were not inspected or tested on Unraid. PostgreSQL and lifecycle evidence above comes from the separate local tests. This check does not establish that Community Applications has indexed the newly published template.
+
 ## Test hygiene and limits
 
 Random PostgreSQL credentials and authentication secrets were generated programmatically, kept in files with mode `0600` inside a mode `0700` directory, never printed, and removed after testing. All test containers, the dedicated network, the PostgreSQL volume, and disposable appdata were removed. No existing containers were changed.
 
 Not tested:
 
-- deployment on an actual Unraid host
-- architectures other than the local arm64 runtime
+- Unraid database operations, restart/recreation, or public Community Applications installation path
+- explicit cross-architecture runtime coverage beyond the local arm64 tests
 - first-user onboarding or browser interactions
 - reverse-proxy behavior, upgrades, backup and restore, load, or long-running operation

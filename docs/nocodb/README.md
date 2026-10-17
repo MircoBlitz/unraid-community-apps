@@ -6,7 +6,7 @@ NocoDB works with SQLite by default. PostgreSQL is recommended for ongoing use, 
 
 ## Install
 
-After this template is published, install **NocoDB** through the Unraid Community Applications repository.
+Install **NocoDB** using [this repository's Unraid template](../../templates/nocodb.xml). Community Applications may need to refresh its index before a newly published template appears.
 
 1. Keep the network mode set to **bridge**.
 2. Map **Appdata** to persistent storage, normally `/mnt/user/appdata/nocodb`.
@@ -15,7 +15,7 @@ After this template is published, install **NocoDB** through the Unraid Communit
 5. Choose the database configuration below before the first start.
 6. Start the container and open its WebUI on your trusted LAN. Create the administrator account before allowing other users to reach it.
 
-The default web address is `http://UNRAID-IP:8080/dashboard`. This template has not yet been validated on an actual Unraid installation; see [test results](test-results.md) for the checks performed.
+The default web address is `http://UNRAID-IP:8080/dashboard`. Local SQLite/PostgreSQL runtime tests and an Unraid startup/HTTP check passed; see [test results](test-results.md) for their scope and limitations.
 
 ## Database configuration
 
