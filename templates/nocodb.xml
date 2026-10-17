@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>NocoDB</Name>
+  <Repository>nocodb/nocodb:latest</Repository>
+  <Registry>https://hub.docker.com/r/nocodb/nocodb</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MircoBlitz/unraid-community-apps/issues</Support>
+  <Project>https://github.com/nocodb/nocodb</Project>
+  <Overview>NocoDB is a self-hosted database application with a spreadsheet-style interface, forms, views, and APIs. This template uses the official NocoDB image. It works with SQLite by default. PostgreSQL is recommended for ongoing use; provide its database and user separately. Persistent appdata is required with either database. See the installation and database guide at https://github.com/MircoBlitz/unraid-community-apps/blob/main/docs/nocodb/README.md.</Overview>
+  <Category>Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/dashboard</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/nocodb.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/nocodb/nocodb/develop/packages/nc-gui/public/icon.png</Icon>
+  <ExtraParams>--init --stop-timeout=30</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Set a long random Authentication Secret before the first start and keep it unchanged. Leave Database Connection empty to use SQLite. For PostgreSQL, first create a dedicated database and user on a separately managed PostgreSQL server. Keep the web port on a trusted LAN or VPN; create the administrator account before exposing it through an HTTPS reverse proxy. Back up appdata and the database before updating. Changing the database connection does not migrate existing data.</Requires>
+  <Config Name="Appdata" Target="/usr/app/data" Default="/mnt/user/appdata/nocodb" Mode="rw" Description="Persistent SQLite database, local attachments, and application files. Required with SQLite and PostgreSQL. Back up this directory." Type="Path" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Web UI Port" Target="8080" Default="8080" Mode="tcp" Description="NocoDB web interface and API. Restrict access to a trusted LAN or VPN, or use an HTTPS reverse proxy." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Authentication Secret" Target="NC_AUTH_JWT_SECRET" Default="" Mode="" Description="Required long random secret used to sign authentication tokens. Generate it with a password manager before first start, store it securely, and keep the same value across updates and recreation." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="Database Connection" Target="NC_DB" Default="" Mode="" Description="Leave empty for SQLite. PostgreSQL is recommended for ongoing use and must be supplied separately. Format: pg://HOST:5432?u=USER&amp;p=PASSWORD&amp;d=DATABASE. URL-encode special characters in connection values. Use a dedicated database and user. This value contains credentials." Type="Variable" Display="always-hide" Required="false" Mask="true"/>
+  <Config Name="Public URL" Target="NC_PUBLIC_URL" Default="" Mode="" Description="Optional externally reachable URL when using an HTTPS reverse proxy, for example https://nocodb.example.com. Leave empty for direct LAN access." Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="Connection Encryption Key" Target="NC_CONNECTION_ENCRYPT_KEY" Default="" Mode="" Description="Optional stable encryption key for credentials of external data sources. Without it, upstream stores those credentials in plaintext in the database. Set it before configuring external sources. Later changes require the upstream secret-management CLI; do not simply replace the value." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="Disable Telemetry" Target="NC_DISABLE_TELE" Default="true" Mode="" Description="Set true to disable anonymous NocoDB usage telemetry." Type="Variable" Display="advanced-hide" Required="false" Mask="false"/>
+</Container>
