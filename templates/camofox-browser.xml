@@ -19,7 +19,7 @@
   <CPUset/>
   <DonateText/>
   <DonateLink/>
-  <Requires>Set separate random Access and Cookie API keys before the first start. Keep ports 9377 and 6080 restricted to your LAN or VPN. noVNC is optional and disabled by default. The MCP adapter runs on each client and connects through CAMOFOX_BASE_URL.</Requires>
+  <Requires>Set separate random Access and Cookie API keys before the first start. Keep ports 9377 and 6080 restricted to your LAN or VPN. noVNC is optional and disabled by default. The MCP adapter runs on each client. Set CAMOFOX_BASE_URL in the client’s MCP configuration, not in this template. Use http://UNRAID-IP:9377 with your Unraid server’s IP address and the mapped REST API port (9377 by default).</Requires>
   <Config Name="Data" Target="/data" Default="/mnt/user/appdata/camofox-browser" Mode="rw" Description="Persistent browser profiles, cookies, uploads, and short-lived traces. This directory can contain login credentials and must be backed up and protected." Type="Path" Display="always-hide" Required="true" Mask="false"/>
   <Config Name="REST API Port" Target="9377" Default="9377" Mode="tcp" Description="Authenticated Camofox REST API. Restrict access to LAN or VPN." Type="Port" Display="always-hide" Required="true" Mask="false"/>
   <Config Name="noVNC Web Port" Target="6080" Default="6080" Mode="tcp" Description="Optional noVNC browser desktop. Keep restricted to LAN/VPN; noVNC traffic is not encrypted by default." Type="Port" Display="always-hide" Required="true" Mask="false"/>
