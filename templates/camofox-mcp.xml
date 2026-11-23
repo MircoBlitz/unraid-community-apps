@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Camofox-MCP</Name>
+  <Repository>ghcr.io/mircoblitz/camofox-mcp:0.1.0</Repository>
+  <Registry>https://github.com/MircoBlitz/camofox-mcp/pkgs/container/camofox-mcp</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MircoBlitz/unraid-community-apps/issues</Support>
+  <Project>https://github.com/MircoBlitz/camofox-mcp</Project>
+  <Overview>Adds Streamable HTTP at /mcp for native or server-side MCP clients using an existing Camofox Browser REST server. This container does not run a browser. This image runs on x86-64 (AMD64).</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/camofox-mcp.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/assets/camofox.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Requires a running Camofox Browser REST server. Set its REST URL and matching Access Key, then generate a separate MCP HTTP API Key with openssl rand -hex 32. MCP clients send that key as a bearer token to /mcp on host port 9378 by default. Do not expose this service publicly. Restrict it to trusted clients and use TLS for MCP whenever the endpoint is reachable beyond loopback.</Requires>
+  <Config Name="MCP HTTP Port" Target="8080" Default="9378" Mode="tcp" Description="Host port for the MCP endpoint at /mcp." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Browser REST URL" Target="CAMOFOX_BASE_URL" Default="" Mode="" Description="Use a container DNS name on a shared user-defined Docker network (for example http://Camofox-Browser:9377) or the Unraid host IP and mapped REST port. Do not use localhost: it points to this adapter container." Type="Variable" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="Browser Access Key" Target="CAMOFOX_ACCESS_KEY" Default="" Mode="" Description="Matching bearer key for the existing Browser REST API, forwarded by the adapter. Do not send it to /mcp." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="MCP HTTP API Key" Target="CAMOFOX_HTTP_API_KEY" Default="" Mode="" Description="Independent client bearer key for /mcp. Use 64 random lowercase hex characters, distinct from the Browser Access and Cookie API keys." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="Browser Cookie API Key" Target="CAMOFOX_API_KEY" Default="" Mode="" Description="Optional matching key for cookie imports through the Browser REST API. Leave blank unless you need imports." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+</Container>

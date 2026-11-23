@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Camofox-MCP-Standalone</Name>
+  <Repository>ghcr.io/mircoblitz/camofox-mcp-standalone:0.1.0</Repository>
+  <Registry>https://github.com/MircoBlitz/camofox-mcp-standalone/pkgs/container/camofox-mcp-standalone</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/MircoBlitz/unraid-community-apps/issues</Support>
+  <Project>https://github.com/MircoBlitz/camofox-mcp-standalone</Project>
+  <Overview>Runs Camofox Browser and its HTTP MCP adapter together. One port serves the browser REST API and the /mcp endpoint, each with its own bearer key. Optional noVNC uses a separate port. This image runs on x86-64 (AMD64).</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/templates/camofox-mcp-standalone.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/MircoBlitz/unraid-community-apps/main/assets/camofox.png</Icon>
+  <ExtraParams>--shm-size=1g --security-opt no-new-privileges=true --stop-timeout=55</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Set separate REST Access and MCP HTTP API keys before starting. Generate the MCP key with openssl rand -hex 32. Do not expose these ports publicly. Restrict them to trusted clients and use TLS for MCP whenever the endpoint is reachable beyond loopback. Use the default Data path for a fresh install. To migrate, stop the old Browser container and back up its appdata before explicitly selecting that path for Data. Never run both containers against the same directory.</Requires>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/camofox-mcp-standalone" Mode="rw" Description="Browser profiles, cookies, uploads, and traces. May contain login credentials; back up and protect this directory." Type="Path" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="REST and MCP Port" Target="9377" Default="9377" Mode="tcp" Description="One port serves REST and Streamable HTTP at exactly /mcp, without a trailing slash. Do not map the internal backend ports." Type="Port" Display="always-hide" Required="true" Mask="false"/>
+  <Config Name="MCP HTTP API Key" Target="CAMOFOX_HTTP_API_KEY" Default="" Mode="" Description="Client bearer key for /mcp. Use 64 random lowercase hex characters, distinct from all Browser keys." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="REST Access Key" Target="CAMOFOX_ACCESS_KEY" Default="" Mode="" Description="Separate random bearer key for the Browser REST API. The bundled adapter uses it for its internal REST calls." Type="Variable" Display="always-hide" Required="true" Mask="true"/>
+  <Config Name="Cookie API Key" Target="CAMOFOX_API_KEY" Default="" Mode="" Description="Optional separate key for direct REST cookie imports. The bundled MCP adapter does not receive it." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="noVNC Web Port" Target="6080" Default="6080" Mode="tcp" Description="Optional noVNC web desktop at /vnc.html. Omit the mapping if unused. Traffic is not encrypted by default; keep it on a trusted LAN or VPN." Type="Port" Display="advanced-hide" Required="false" Mask="false"/>
+  <Config Name="Enable noVNC" Target="ENABLE_VNC" Default="0" Mode="" Description="Set to 1 to enable shared human-and-LLM browser access through noVNC." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="noVNC Password" Target="VNC_PASSWORD" Default="" Mode="" Description="Set a separate password of 8 random ASCII characters before enabling noVNC; classic VNC authentication ignores additional characters." Type="Variable" Display="advanced-hide" Required="false" Mask="true"/>
+  <Config Name="noVNC Bind Address" Target="VNC_BIND" Default="0.0.0.0" Mode="" Description="Allows the mapped noVNC port to reach the service inside the container. Do not publish native VNC port 5900." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+  <Config Name="Disable Crash Telemetry" Target="CAMOFOX_CRASH_REPORT_ENABLED" Default="false" Mode="" Description="Keep crash and hang reports local for this private deployment." Type="Variable" Display="advanced-hide" Required="true" Mask="false"/>
+</Container>
